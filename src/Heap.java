@@ -1,6 +1,8 @@
 
 public class Heap {
 	int arryfinal[];
+	int heapboundary;
+	//inserting functions
 	public int[] insert(int a[])
 	{
 		
@@ -14,6 +16,8 @@ public class Heap {
 		int boundary=1;
 		
 		insert(boundary,newheap);
+		heapboundary=newheap.length-1;
+
 		return newheap;//returns the heap
 		
 	
@@ -55,44 +59,71 @@ public class Heap {
 		
 				
 	}
-
-	public void delete() {
-		arryfinal[1]=arryfinal[arryfinal.length-1];
-		arryfinal[arryfinal.length-1]=0;
-		arrange(1,arryfinal);
-//		System.out.println("inside delete");
-//		for(int temp:arryfinal)
-//		{
-//			System.out.println(temp);
-//		}
-//		System.out.println("inside delete");
-
+	
+	
+	
+	//deleting function
+	public void delete()
+	{
+		heapboundary=delete(arryfinal,heapboundary);
+		
 	}
 
-	private void arrange(int i, int[] array) {
-
-		if(2*i>=array.length-1)
-		{
+	private int delete(int[] arryfinal, int heapboundary) {
+		arryfinal[1]=arryfinal[heapboundary];
+		arryfinal[heapboundary]=0;
 		
+		
+		
+		
+		heapboundary--;
+		arrange(arryfinal,heapboundary,1);
+		return heapboundary;
+	}
+
+	private void arrange(int[] arryfinal, int heapboundary,int i) {
+		if(2*i>heapboundary)
+		{
 			return;
 		}
-	
-			if(array[2*i]>array[2*i+1])
+		else if(2*i==heapboundary)
 		{
-			int temp=array[i];
-			array[i]=array[2*i];
-			array[2*i]=temp;
-			arrange(2*i,array);
-		}
-		else
-		{
-			int temp=array[i];
-			array[i]=array[2*i+1];
-			array[2*i+1]=temp;
-			arrange(2*i+1,array);
+			if(arryfinal[2*i]>arryfinal[i])
+			{
+				int temp=arryfinal[i];
+				arryfinal[i]=arryfinal[2*1];
+				arryfinal[2*i]=temp;
+				
+				return;
+			}
+			else
+			{
+				return;
+			}
 		}
 		
+		else if(arryfinal[2*i]>arryfinal[2*i+1]&&arryfinal[2*i]>arryfinal[i])
+		{
+			
+			int temp=arryfinal[i];
+			arryfinal[i]=arryfinal[2*i];
+			arryfinal[2*i]=temp;
+
+			arrange(arryfinal, heapboundary, 2*i);
+		}
+		else if(arryfinal[2*i+1]>arryfinal[2*i]&&arryfinal[2*i+1]>arryfinal[i])
+
+		{
+			int temp=arryfinal[i];
+			arryfinal[i]=arryfinal[2*1+1];
+			arryfinal[2*i+1]=temp;
+		
+			arrange(arryfinal, heapboundary, 2*i+1);
+		}
+		
+		
 	}
+
 	
 
 
